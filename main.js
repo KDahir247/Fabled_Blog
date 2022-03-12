@@ -4392,8 +4392,12 @@ var _Bitwise_shiftRightZfBy = F2(function(offset, a)
 {
 	return a >>> offset;
 });
-var $author$project$Main$Model = {};
-var $author$project$Main$init = $author$project$Main$Model;
+var $author$project$Main$ClickedLink = function (a) {
+	return {$: 'ClickedLink', a: a};
+};
+var $author$project$Main$UrlChanged = function (a) {
+	return {$: 'UrlChanged', a: a};
+};
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
@@ -5182,31 +5186,22 @@ var $elm$core$Task$perform = F2(
 			$elm$core$Task$Perform(
 				A2($elm$core$Task$map, toMessage, task)));
 	});
+var $elm$browser$Browser$application = _Browser_application;
+var $author$project$Main$Model = {};
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Main$init = F3(
+	function (_v0, url, navKey) {
+		return _Utils_Tuple2($author$project$Main$Model, $elm$core$Platform$Cmd$none);
+	});
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $elm$browser$Browser$sandbox = function (impl) {
-	return _Browser_element(
-		{
-			init: function (_v0) {
-				return _Utils_Tuple2(impl.init, $elm$core$Platform$Cmd$none);
-			},
-			subscriptions: function (_v1) {
-				return $elm$core$Platform$Sub$none;
-			},
-			update: F2(
-				function (msg, model) {
-					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
-						$elm$core$Platform$Cmd$none);
-				}),
-			view: impl.view
-		});
+var $author$project$Main$subscription = function (model) {
+	return $elm$core$Platform$Sub$none;
 };
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		return model;
+		return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 	});
 var $mdgriffith$elm_ui$Internal$Model$Rgba = F4(
 	function (a, b, c, d) {
@@ -11237,38 +11232,44 @@ var $mdgriffith$elm_ui$Element$text = function (content) {
 	return $mdgriffith$elm_ui$Internal$Model$Text(content);
 };
 var $author$project$Main$view = function (model) {
-	return A2(
-		$mdgriffith$elm_ui$Element$layout,
-		_List_fromArray(
+	return {
+		body: _List_fromArray(
 			[
-				$mdgriffith$elm_ui$Element$Background$color($author$project$Main$background_color),
-				$mdgriffith$elm_ui$Element$Font$size(20)
-			]),
-		A2(
-			$mdgriffith$elm_ui$Element$column,
-			_List_Nil,
-			_List_fromArray(
-				[
-					A2(
-					$mdgriffith$elm_ui$Element$el,
+				A2(
+				$mdgriffith$elm_ui$Element$layout,
+				_List_fromArray(
+					[
+						$mdgriffith$elm_ui$Element$Background$color($author$project$Main$background_color),
+						$mdgriffith$elm_ui$Element$Font$size(20)
+					]),
+				A2(
+					$mdgriffith$elm_ui$Element$column,
+					_List_Nil,
 					_List_fromArray(
 						[
-							$mdgriffith$elm_ui$Element$Region$heading(1),
-							$mdgriffith$elm_ui$Element$moveRight(50),
-							$mdgriffith$elm_ui$Element$moveDown(50),
-							$mdgriffith$elm_ui$Element$Font$size(72),
-							$mdgriffith$elm_ui$Element$Font$extraBold,
-							$mdgriffith$elm_ui$Element$Font$family(
+							A2(
+							$mdgriffith$elm_ui$Element$el,
 							_List_fromArray(
 								[
-									$mdgriffith$elm_ui$Element$Font$external(
-									{name: 'Fredoka', url: 'https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap'})
-								]))
-						]),
-					$mdgriffith$elm_ui$Element$text('Fabled Blog'))
-				])));
+									$mdgriffith$elm_ui$Element$Region$heading(1),
+									$mdgriffith$elm_ui$Element$moveRight(50),
+									$mdgriffith$elm_ui$Element$moveDown(50),
+									$mdgriffith$elm_ui$Element$Font$size(72),
+									$mdgriffith$elm_ui$Element$Font$extraBold,
+									$mdgriffith$elm_ui$Element$Font$family(
+									_List_fromArray(
+										[
+											$mdgriffith$elm_ui$Element$Font$external(
+											{name: 'Fredoka', url: 'https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap'})
+										]))
+								]),
+							$mdgriffith$elm_ui$Element$text('Fabled Blog'))
+						])))
+			]),
+		title: 'Fable Blog'
+	};
 };
-var $author$project$Main$main = $elm$browser$Browser$sandbox(
-	{init: $author$project$Main$init, update: $author$project$Main$update, view: $author$project$Main$view});
+var $author$project$Main$main = $elm$browser$Browser$application(
+	{init: $author$project$Main$init, onUrlChange: $author$project$Main$UrlChanged, onUrlRequest: $author$project$Main$ClickedLink, subscriptions: $author$project$Main$subscription, update: $author$project$Main$update, view: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
