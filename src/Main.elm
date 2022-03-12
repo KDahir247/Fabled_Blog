@@ -20,5 +20,5 @@ main =
         ]
     <|
         el
-            [ centerX, centerY ]
+            [ centerX, centerY, alpha 0.4 ]
             (text "Blog is under construction check back soon!")
