@@ -4406,5 +4406,5 @@ var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 };
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
-var $author$project$Main$main = $elm$html$Html$text('Called from Elm. Blog page for the development of major projects such as the Fabled Engine, Pilot Launcher, and Fabled Editor. (Working progress I Will be using Elm most likely for designing the blog page.');
+var $author$project$Main$main = $elm$html$Html$text('Calling from Elm!!');
 _Platform_export({'Main':{'init':_VirtualDom_init($author$project$Main$main)(0)(0)}});}(this));
