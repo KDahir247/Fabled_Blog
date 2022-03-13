@@ -1,77 +1,82 @@
 module Main exposing (..)
 
 import Browser
+import Browser.Navigation as Navigation
 import Element exposing (..)
-import Element.Background as Background
-import Element.Font as Font
-import Element.Region as Region
-import Url
-import Platform.Cmd exposing (none)
-import Platform.Sub exposing (none)
-import Element.Border exposing (..)
+import Html exposing (Html, div)
+import Html.Attributes exposing (href)
+import Url exposing (Url)
+import Platform.Cmd
+import Bootstrap.Navbar as Navbar
+
+type alias Flags =
+    {}
+
 background_color : Color
 background_color = Element.rgb 0.1686 0.1686 0.1686
 
 type Msg =
      ClickedLink Browser.UrlRequest
     | UrlChanged Url.Url
+    | NavbarMsg Navbar.State
 
-type alias Model = {}
 
-init () url navKey = (Model, Platform.Cmd.none)
+type alias Model =
+    { navKey : Navigation.Key
+    , navState : Navbar.State
+    }
+
+init : Flags -> Url -> Navigation.Key -> (Model, Cmd Msg)
+init flag url navKey =
+    let
+            (navState, navbarCmd)
+                = Navbar.initialState NavbarMsg
+        in
+            ({navKey = navKey, navState = navState}, navbarCmd )
+
+
 
 view : Model -> Browser.Document Msg
 view model =
     {
     title = "Fable Blog"
-    , body = [
-            Element.layout
-                                      [Background.color background_color
-                                      ,scrollbarY
-                                      ]
-                                  <|
-                                      Element.column
-                                      [
-                                      Element.width fill,
-                                      Element.height fill
-                                      ]
-                                      [el
-                                          [ Region.heading 1
-                                                          , paddingXY 70 70
-                                                          , Font.size 72
-                                                          , Font.extraBold
-                                                          , Font.color (rgb255 179 0 0)
-                                                          , Font.glow (rgb255 255 220 26) 1.5
-                                                          , Font.family
-                                                              [ Font.external{
-                                                                  url = "https://fonts.googleapis.com/css2?family=Fredoka:wght@300&display=swap"
-                                                                  , name = "Fredoka"
-                                                                  }
-                                                              ]
-                                          ]
-                                            <|
-                                                text "Fabled Blog"
-                                          ,
-                                          Element.row
-                                          [
-                                          Element.width fill
-                                          ,Background.color (rgb 0.149 0.1569 0.149)
-                                          ,Element.Border.rounded 50
-                                          , Element.Border.color (rgb255 255 255 255)
-                                          ]
-                                          [
-                                          Element.el
-                                          [
-                                          ] (text "hello")
-                                          ]
-                                      ]
-                                  ]
+    , body =
+        [
+        div
+        [
+        ]
+            [
+                menu model
+            ]
+        ]
     }
 
-update : Msg -> Model -> (Model, Cmd Msg)
-update msg model = (model, Platform.Cmd.none)
+menu : Model -> Html Msg
+menu model = Navbar.config NavbarMsg
+    |>  Navbar.withAnimation
+    |> Navbar.container
+    |> Navbar.brand [href "#"] [Html.text "Fabled Blog"]
+    |> Navbar.items
+        [ Navbar.itemLink [href "#"] [Html.text "Game Engine"] {-We want to have a group to represent different parts-}
+        , Navbar.itemLink [href "#"] [Html.text "Compiler/Interpreter"]
+        , Navbar.itemLink [href "#"] [Html.text "Showcase"]
+        , Navbar.itemLink [href "#"] [Html.text "About Me"]
+        ]
+    |> Navbar.view model.navState
 
-subscription model = Platform.Sub.none
+update : Msg -> Model -> (Model, Cmd Msg)
+update msg model =
+        case msg of
+            NavbarMsg state ->
+                ( { model | navState = state }, Cmd.none )
+
+            _ -> (model, Cmd.none)
+
+
+
+
+subscription model =
+        Navbar.subscriptions model.navState NavbarMsg
 
 main = Browser.application
     {init = init
