@@ -82,10 +82,11 @@ menu model = Navbar.config NavbarMsg
         ,toggle = Navbar.dropdownToggle [] [Html.text "Artwork"]
         ,items =
             [ Navbar.dropdownHeader [Html.text "Visual"]
-            , Navbar.dropdownItem[href "#"] [Html.text "Splash Art"]
+            , Navbar.dropdownItem[href "#"] [Html.text "Illustration"]
             , Navbar.dropdownItem[href "#"] [Html.text "Studies"]
             , Navbar.dropdownDivider
             , Navbar.dropdownHeader [Html.text "Content"]
+            , Navbar.dropdownItem[href "#"] [Html.text "Tutorial"]
             , Navbar.dropdownItem[href "#"] [Html.text "Blog"]
             ]
         }
@@ -98,8 +99,8 @@ menu model = Navbar.config NavbarMsg
 social_platform : Model -> Html Msg
 social_platform model = ButtonGroup.toolbar []
                             [
-                            ButtonGroup.linkButtonGroupItem []
-                                [ButtonGroup.linkButton
+                            ButtonGroup.linkButtonGroupItem [ButtonGroup.attrs[Html.Attributes.style "width" "27%", Html.Attributes.style "margin-left" "auto"]]
+                                [ ButtonGroup.linkButton
                                  [Button.attrs
                                      [href "https://www.tiktok.com/@farsawir"
                                      ]
@@ -110,7 +111,7 @@ social_platform model = ButtonGroup.toolbar []
                                      [
                                      ]
                                  ]
-                                 ,ButtonGroup.linkButton
+                                 , ButtonGroup.linkButton
                                  [Button.attrs
                                      [href "https://www.youtube.com/channel/UC_GxA_40R305OZkr2o5ka3A/featured"
                                      ]
@@ -121,6 +122,17 @@ social_platform model = ButtonGroup.toolbar []
                                     [
                                     ]
                                  ]
+                                 , ButtonGroup.linkButton
+                                 [Button.attrs
+                                    [href "https://github.com/KDahir247"
+                                    ],
+                                    Button.small
+                                 ]
+                                 [Html.img [src "./resources/images/github_icon.png"  , Html.Attributes.height 30]
+                                     [
+                                     ]
+                                 ]
+
                                 ]
                             ]
 update : Msg -> Model -> (Model, Cmd Msg)

@@ -7087,7 +7087,7 @@ var $author$project$Main$menu = function (model) {
 									]),
 								_List_fromArray(
 									[
-										$elm$html$Html$text('Splash Art')
+										$elm$html$Html$text('Illustration')
 									])),
 								A2(
 								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
@@ -7104,6 +7104,16 @@ var $author$project$Main$menu = function (model) {
 								_List_fromArray(
 									[
 										$elm$html$Html$text('Content')
+									])),
+								A2(
+								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('#')
+									]),
+								_List_fromArray(
+									[
+										$elm$html$Html$text('Tutorial')
 									])),
 								A2(
 								$rundis$elm_bootstrap$Bootstrap$Navbar$dropdownItem,
@@ -7167,6 +7177,12 @@ var $rundis$elm_bootstrap$Bootstrap$Internal$Button$Attrs = function (a) {
 };
 var $rundis$elm_bootstrap$Bootstrap$Button$attrs = function (attrs_) {
 	return $rundis$elm_bootstrap$Bootstrap$Internal$Button$Attrs(attrs_);
+};
+var $rundis$elm_bootstrap$Bootstrap$ButtonGroup$Attrs = function (a) {
+	return {$: 'Attrs', a: a};
+};
+var $rundis$elm_bootstrap$Bootstrap$ButtonGroup$attrs = function (attrs_) {
+	return $rundis$elm_bootstrap$Bootstrap$ButtonGroup$Attrs(attrs_);
 };
 var $elm$html$Html$Attributes$height = function (n) {
 	return A2(
@@ -7436,7 +7452,15 @@ var $author$project$Main$social_platform = function (model) {
 			[
 				A2(
 				$rundis$elm_bootstrap$Bootstrap$ButtonGroup$linkButtonGroupItem,
-				_List_Nil,
+				_List_fromArray(
+					[
+						$rundis$elm_bootstrap$Bootstrap$ButtonGroup$attrs(
+						_List_fromArray(
+							[
+								A2($elm$html$Html$Attributes$style, 'width', '27%'),
+								A2($elm$html$Html$Attributes$style, 'margin-left', 'auto')
+							]))
+					]),
 				_List_fromArray(
 					[
 						A2(
@@ -7479,6 +7503,28 @@ var $author$project$Main$social_platform = function (model) {
 								_List_fromArray(
 									[
 										$elm$html$Html$Attributes$src('./resources/images/youtube_icon.png'),
+										$elm$html$Html$Attributes$height(30)
+									]),
+								_List_Nil)
+							])),
+						A2(
+						$rundis$elm_bootstrap$Bootstrap$ButtonGroup$linkButton,
+						_List_fromArray(
+							[
+								$rundis$elm_bootstrap$Bootstrap$Button$attrs(
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$href('https://github.com/KDahir247')
+									])),
+								$rundis$elm_bootstrap$Bootstrap$Button$small
+							]),
+						_List_fromArray(
+							[
+								A2(
+								$elm$html$Html$img,
+								_List_fromArray(
+									[
+										$elm$html$Html$Attributes$src('./resources/images/github_icon.png'),
 										$elm$html$Html$Attributes$height(30)
 									]),
 								_List_Nil)
