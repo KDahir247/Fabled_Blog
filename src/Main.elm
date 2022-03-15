@@ -3,12 +3,14 @@ module Main exposing (..)
 
 import Bootstrap.Button as Button
 import  Bootstrap.ButtonGroup as ButtonGroup
+import Bootstrap.Grid as Grid
+import Bootstrap.Grid.Col as Col
 import Browser
 import Browser.Navigation as Navigation
 import Browser.Navigation
 import Color
 import Html exposing (Html, div)
-import Html.Attributes exposing (href, src)
+import Html.Attributes exposing (href, src, style)
 import Url exposing (Url)
 import Platform.Cmd
 import Bootstrap.Navbar as Navbar
@@ -51,6 +53,7 @@ view model =
         ]
             [ menu model
             , social_platform model
+            , pageHome model
             ]
         ]
     }
@@ -95,46 +98,67 @@ menu model = Navbar.config NavbarMsg
         ]
     |> Navbar.view model.navState
 
-
+{-Might remove Remove ButtonGroup and keep it as individual button for each grid col.-}
 social_platform : Model -> Html Msg
-social_platform model = ButtonGroup.toolbar []
-                            [
-                            ButtonGroup.linkButtonGroupItem [ButtonGroup.attrs[Html.Attributes.style "width" "27%", Html.Attributes.style "margin-left" "auto"]]
-                                [ ButtonGroup.linkButton
-                                 [Button.attrs
-                                     [href "https://www.tiktok.com/@farsawir"
-                                     ]
-                                     ,
-                                     Button.small
-                                 ]
-                                 [Html.img [src "./resources/images/tick_tok_icon.png"  , Html.Attributes.height 30]
-                                     [
-                                     ]
-                                 ]
-                                 , ButtonGroup.linkButton
-                                 [Button.attrs
-                                     [href "https://www.youtube.com/channel/UC_GxA_40R305OZkr2o5ka3A/featured"
-                                     ]
-                                     ,
-                                     Button.small
-                                 ]
-                                 [Html.img [src "./resources/images/youtube_icon.png"  , Html.Attributes.height 30]
-                                    [
-                                    ]
-                                 ]
-                                 , ButtonGroup.linkButton
-                                 [Button.attrs
-                                    [href "https://github.com/KDahir247"
-                                    ],
-                                    Button.small
-                                 ]
-                                 [Html.img [src "./resources/images/github_icon.png"  , Html.Attributes.height 30]
-                                     [
-                                     ]
-                                 ]
+social_platform model = Grid.container [style "background-color" "#666262"]
+    [Grid.row []
+            [ Grid.col [] []
+            , Grid.col [ Col.md2]
+            [ButtonGroup.toolbar []
+                                         [
+                                         ButtonGroup.linkButtonGroupItem []
+                                             [ ButtonGroup.linkButton
+                                              [Button.attrs
+                                                  [href "https://www.tiktok.com/@farsawir"
+                                                  ]
+                                                  ,
+                                                  Button.small
+                                              ]
+                                              [Html.img [src "./resources/images/tick_tok_icon.png"  ]
+                                                  [
+                                                  ]
+                                              ]
+                                              , ButtonGroup.linkButton
+                                              [Button.attrs
+                                                  [href "https://www.youtube.com/channel/UC_GxA_40R305OZkr2o5ka3A/featured"
+                                                  ]
+                                                  ,
+                                                  Button.small
+                                              ]
+                                              [Html.img [src "./resources/images/youtube_icon.png" ]
+                                                 [
+                                                 ]
+                                              ]
+                                              , ButtonGroup.linkButton
+                                              [Button.attrs
+                                                 [href "https://github.com/KDahir247"
+                                                 ],
+                                                 Button.small
+                                              ]
+                                              [Html.img [src "./resources/images/github_icon.png"  ]
+                                                  [
+                                                  ]
+                                              ]
 
-                                ]
-                            ]
+                                             ]
+                                         ]
+            ]
+
+            ]
+    ]
+
+
+pageHome : Model -> Html msg
+pageHome  model = Grid.container []
+    <|
+    [Grid.row []
+        [ Grid.col [Col.xs9, Col.md8] [Html.text "testing"]
+        , Grid.col [] [Html.text "grid"]
+
+        ]
+    ]
+    
+                            
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
         case msg of
