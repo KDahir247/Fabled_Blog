@@ -3,14 +3,20 @@ module Main exposing (..)
 
 import Bootstrap.Button as Button
 import  Bootstrap.ButtonGroup as ButtonGroup
+import Bootstrap.Card as Card
+import Bootstrap.Card.Block as Block
 import Bootstrap.Grid as Grid
 import Bootstrap.Grid.Col as Col
+import Bootstrap.Grid.Row as Row
+import Bootstrap.Text as Text
+import Bootstrap.Utilities.Spacing as Spacing
 import Browser
 import Browser.Navigation as Navigation
 import Browser.Navigation
 import Color
-import Html exposing (Html, div)
-import Html.Attributes exposing (href, src, style)
+import Html exposing (Html, div, h3, img, text)
+import Html.Attributes exposing (class, href, src, style)
+import Menu exposing (viewFooter)
 import Url exposing (Url)
 import Platform.Cmd
 import Bootstrap.Navbar as Navbar
@@ -54,6 +60,7 @@ view model =
             [ menu model
             , social_platform model
             , pageHome model
+            , viewFooter
             ]
         ]
     }
@@ -101,9 +108,10 @@ menu model = Navbar.config NavbarMsg
 {-Might remove Remove ButtonGroup and keep it as individual button for each grid col.-}
 social_platform : Model -> Html Msg
 social_platform model = Grid.container [style "background-color" "#666262"]
-    [Grid.row []
+    [Grid.row [Row.rightMd]
             [ Grid.col [] []
-            , Grid.col [ Col.md2]
+            , Grid.col [ Col.xs6 ] []
+            , Grid.col []
             [ButtonGroup.toolbar []
                                          [
                                          ButtonGroup.linkButtonGroupItem []
@@ -149,10 +157,23 @@ social_platform model = Grid.container [style "background-color" "#666262"]
 
 
 pageHome : Model -> Html msg
-pageHome  model = Grid.container []
+pageHome  model = Grid.container [Html.Attributes.style "padding-top" "50px"]
     <|
     [Grid.row []
-        [ Grid.col [Col.xs9, Col.md8] [Html.text "testing"]
+        [ Grid.col [Col.xs9, Col.md8]
+        [
+        Card.config [Card.align Text.alignXsCenter]
+        |> Card.block []
+        [
+        {-Card detail here-}
+          Block.titleH3 [] [Html.text "Hello World"]
+        , Block.text[] [Html.text "first blog post"]
+        , Block.custom
+         <| Button.button[Button.primary] [Html.text "read"]
+        ]
+        |> Card.view
+
+        ]
         , Grid.col [] [Html.text "grid"]
 
         ]
